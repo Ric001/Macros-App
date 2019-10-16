@@ -11,6 +11,6 @@ public interface IDAO {
     public void modify(Order order) throws SQLException;
     public void remove(Order order) throws SQLException;
     public Order findOrderById(Integer id) throws SQLException;
-    public Set<Order> findAll();
+    public Set<Order> findAll() throws SQLException;
     
 }
