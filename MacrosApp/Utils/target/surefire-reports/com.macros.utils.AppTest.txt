@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: com.macros.persistence.AppTest
+Test set: com.macros.utils.AppTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 s - in com.macros.persistence.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 s - in com.macros.utils.AppTest
