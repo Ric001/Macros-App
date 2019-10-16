@@ -1,4 +1,4 @@
-package com.macros;
+package com.macros.persistence;
 
 import static org.junit.Assert.assertTrue;
 
