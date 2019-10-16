@@ -69,6 +69,7 @@ public class MySQLDAO implements IDAO {
 
         closeResources();
         nullResources();
+        
         LOG.info("[ENDING void remove(Order order)]");
     }
 
@@ -81,7 +82,7 @@ public class MySQLDAO implements IDAO {
         pStatement.setInt(1, id);
         resultSet = pStatement.executeQuery();
         
-        if (resultSet.next() && !resultSet.isClosed())
+        if (Objects.nonNull(resultSet) && !resultSet.isClosed() && resultSet.next())
         {
             order.setId(resultSet.getInt("ID"));
             order.setName(resultSet.getString("NAME"));
