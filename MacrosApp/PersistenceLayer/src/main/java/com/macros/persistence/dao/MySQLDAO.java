@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.macros.persistence.dao.connectionlogic.ConnectionManager;
 import com.macros.persistence.dao.constants.Querys;
 import com.macros.persistence.model.Order;
 
@@ -125,16 +126,22 @@ public class MySQLDAO implements IDAO {
 
     private void closeResources() throws SQLException
     {
+        LOG.info("[ENTERING void closeResources() throws SQLException]");
+
         if (Objects.nonNull(connection) || !connection.isClosed())
             connection.close();
         if (Objects.nonNull(pStatement) || !pStatement.isClosed())
             pStatement.close();
         if (Objects.nonNull(resultSet) || !resultSet.isClosed())
             resultSet.close();
+        
+        LOG.info("[ENDING void closeResources() throws SQLException]");
     }
 
     private void nullResources() 
     {
+        LOG.info("[NULLING RESOURCES -> void closeResources() throws SQLException]");
+
         connection = null;
         pStatement = null;
         resultSet = null;

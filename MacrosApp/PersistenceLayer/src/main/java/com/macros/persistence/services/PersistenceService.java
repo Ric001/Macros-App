@@ -32,12 +32,15 @@ public class PersistenceService implements IPersistenceService {
 
     @Override
     public void modify(Order order) {
+        LOG.info("[ENTERING void modify(Order order)]");
+
         try {
             dao.modify(order);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        LOG.info("[ENDING void modify(Order order)]");
     }
 
     @Override
@@ -82,4 +85,11 @@ public class PersistenceService implements IPersistenceService {
         LOG.info("RETURNING FROM Set<Order> findAll() WITH -> " + orders + "]");
         return orders;
     }
+
+    @Override
+    public String toString() {
+        return "PersistenceService [dao=" + dao + "]";
+    }
+
+    
 }

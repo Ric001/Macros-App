@@ -1,4 +1,4 @@
-package com.macros.persistence.dao;
+package com.macros.persistence.dao.connectionlogic;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Objects;
-
 
 import com.macros.persistence.dao.constants.DBLinks;
 import com.macros.persistence.dao.constants.DBProviders;
@@ -18,8 +17,7 @@ public class ConnectionLoader {
     private String password;
     private String dbName;
     private String configurationFileRoute;
-    private DBLinks link;
-
+    private DBLinks accessLink;
 
     public ConnectionLoader(DBProviders provider, String configurationFileRoute) {
         setDBLinkType(provider);
@@ -28,7 +26,7 @@ public class ConnectionLoader {
     }
 
     public String connectionString() {
-        return new StringBuilder().append(link + "/").append(dbName + "/").append(username + "/").append(password)
+        return new StringBuilder().append(accessLink + "/").append(dbName + "/").append(username + "/").append(password)
                 .toString();
     }
 
@@ -36,15 +34,16 @@ public class ConnectionLoader {
         if (Objects.nonNull(provider))
             switch (provider) {
             case MYSQL:
-                link = DBLinks.MYSQL;
+                accessLink = DBLinks.MYSQL_LINK;
                 break;
             }
     }
 
-    
     private void setCredentials(final String credentialRead) {
+
         if (Objects.isNull(credentialRead) || credentialRead.isEmpty())
             return;
+            
         final String[] credentialsArray = credentialRead.split("|");
         username = credentialsArray[0];
         password = credentialsArray[1];
@@ -56,10 +55,11 @@ public class ConnectionLoader {
         
         try {
             final File file = new File(configurationFileRoute);
-            bReader = new BufferedReader(new FileReader(file));
-            String credentialsString = bReader.readLine();
-            setCredentials(credentialsString);
-            
+            if (file.exists() && file.isFile()) {
+                bReader = new BufferedReader(new FileReader(file));
+                String credentialsString = bReader.readLine();
+                setCredentials(credentialsString);   
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } 
@@ -68,9 +68,11 @@ public class ConnectionLoader {
         } finally {
             closeStream(bReader);
         }
+
     }
 
     private void closeStream(Reader reader) {
+
         if (Objects.nonNull(reader)) {
             try {
                 reader.close();
@@ -78,11 +80,12 @@ public class ConnectionLoader {
                 e.printStackTrace();
             }
         }
+
     }
 
     @Override
     public String toString() {
         return "ConnectionLoader [configurationFileRoute=" + configurationFileRoute + ", dbName=" + dbName + ", link="
-                + link + ", password=" + password + ", username=" + username + "]";
+                + accessLink + ", password=" + password + ", username=" + username + "]";
     }
 }
