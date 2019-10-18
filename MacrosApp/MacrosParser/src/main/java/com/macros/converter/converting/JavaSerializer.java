@@ -64,6 +64,7 @@ public class JavaSerializer<T> implements IConverter<T> {
             final ObjectInputStream inputStream = new ObjectInputStream(new ByteArrayInputStream(tdd));
             @SuppressWarnings("unchecked")
             final T parsedTDD = (T) inputStream.readObject();
+            inputStream.close();
             return parsedTDD;
         } catch (IOException e) {
             e.printStackTrace();
