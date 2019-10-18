@@ -38,7 +38,8 @@ public class JsonCoverter<T> implements IConverter<T> {
 
         String jsonyfiedObj = "";
 
-        if (Objects.nonNull(objToConvert) && jsonMapper.isPresent()) {
+        if (Objects.nonNull(objToConvert) && jsonMapper.isPresent()) 
+        {
             jsonyfiedObj = handlingException(objToConvert);
         }
 
