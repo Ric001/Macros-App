@@ -58,7 +58,9 @@ public class JsonCoverter<T> implements IConverter<T> {
 
     private T hanlingException(String value, Class clazz) {
         try {
-            return (T) jsonMapper.get().readValue(value, clazz);
+            @SuppressWarnings("unchecked")
+            final T parsedTDD = (T) jsonMapper.get().readValue(value, clazz);
+            return parsedTDD;
         } catch (IOException e) {
             e.printStackTrace();
         }
