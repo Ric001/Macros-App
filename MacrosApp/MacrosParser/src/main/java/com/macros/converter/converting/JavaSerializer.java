@@ -3,7 +3,6 @@ package com.macros.converter.converting;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Base64;
@@ -14,18 +13,16 @@ import java.util.logging.Logger;
 import com.ricks.utils.string.Strings;
 
 public class JavaSerializer<T> implements IConverter<T> {
-    private Optional<ByteArrayOutputStream> serializerStream;
-    private Optional<InputStream> parserStream;
+
 
     private final static Logger log = Logger.getLogger(JavaSerializer.class.getName());
 
-  
     @Override
     public T parse(String value, Optional<Class> clazz) {
         log.info("[ENTERING T parse(string value, Optional<Class> clazz)]");
 
         T parsedObj = null;
-        if (Strings.nonNullOrEmpty(value) && parserStream.isPresent() && clazz.isPresent()) {
+        if (Strings.nonNullOrEmpty(value)) {
             parsedObj = handleException(value);
         }
 
@@ -38,7 +35,7 @@ public class JavaSerializer<T> implements IConverter<T> {
         log.info("[ENTERING String serialize(T objToConvert)]");
 
         String serializedAsString = "";
-        if (Objects.nonNull(objToConvert) && serializerStream.isPresent())
+        if (Objects.nonNull(objToConvert))
         {
             serializedAsString = handleException(objToConvert);
         }
