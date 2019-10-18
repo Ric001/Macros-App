@@ -1,5 +1,5 @@
 com\macros\persistence\dao\constants\Querys$1.class
 com\macros\persistence\dao\constants\DBProviders$1.class
 com\macros\persistence\dao\constants\DBLinks$1.class
-com\macros\persistence\dao\ConnectionLoader$1.class
 com\macros\persistence\App.class
+com\macros\persistence\dao\connectionlogic\ConnectionLoader$1.class

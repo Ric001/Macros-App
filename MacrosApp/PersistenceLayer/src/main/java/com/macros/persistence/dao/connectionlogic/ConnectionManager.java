@@ -17,7 +17,7 @@ public class ConnectionManager {
     private final static Logger LOG = Logger.getLogger(ConnectionManager.class.getName());
     
     private final static String CREDENTIALS_FILE = "credentials.txt";
-    private final static String CONFIG_FOLDER = ".\\config";
+    private final static String CONFIG_FOLDER = "\\config";
     
     private ConnectionManager() {
         loader = new ConnectionLoader(DBProviders.MYSQL, pathToConfiguration());
@@ -35,7 +35,7 @@ public class ConnectionManager {
 
     public synchronized Connection connect() throws SQLException {
         LOG.info("[ENTERING Connection connect() throws SQLException ]");
-
+        
         if (Objects.isNull(connection) || connection.isClosed())
             if (Objects.nonNull(loader))
                 connection = DriverManager.getConnection(loader.connectionString());

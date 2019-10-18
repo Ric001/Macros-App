@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import com.macros.persistence.dao.constants.DBLinks;
 import com.macros.persistence.dao.constants.DBProviders;
+import com.ricks.utils.string.Strings;
 
 public class ConnectionLoader {
 
@@ -40,14 +41,13 @@ public class ConnectionLoader {
     }
 
     private void setCredentials(final String credentialRead) {
-
-        if (Objects.isNull(credentialRead) || credentialRead.isEmpty())
-            return;
-            
-        final String[] credentialsArray = credentialRead.split("|");
-        username = credentialsArray[0];
-        password = credentialsArray[1];
-        dbName = credentialsArray[2];
+        if (Strings.nonNullOrEmpty(credentialRead)) 
+        {
+            final String[] credentialsArray = credentialRead.split("|");
+            username = credentialsArray[0];
+            password = credentialsArray[1];
+            dbName = credentialsArray[2];
+        }
     }
 
     private void findConfigurationByRoute() {
