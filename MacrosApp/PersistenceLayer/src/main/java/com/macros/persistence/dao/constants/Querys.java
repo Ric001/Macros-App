@@ -1,4 +1,4 @@
-package com.macros.persistence.dao.enums;
+package com.macros.persistence.dao.constants;
 
 public enum Querys {
     FIND_ALL, FIND_BY_ID, 
