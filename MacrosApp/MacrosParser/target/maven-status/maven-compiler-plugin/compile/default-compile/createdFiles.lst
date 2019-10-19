@@ -1,0 +1,6 @@
+com\macros\converter\converting\JavaSerializer.class
+com\macros\converter\App.class
+com\macros\converter\converting\IConverter.class
+com\macros\converter\converting\JsonCoverter.class
+com\macros\converter\model\ParsedOrder.class
+com\macros\converter\model\OrderWithoutConvert.class

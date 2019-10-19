@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.macros.persistence.dao.connectionlogic.ConnectionManager;
 import com.macros.persistence.dao.constants.Querys;
 import com.macros.persistence.model.Order;
 
@@ -30,13 +32,14 @@ public class MySQLDAO implements IDAO {
         LOG.info("[ENTERING void create(Order order)]");
 
         final Querys createQuery = Querys.CREATE;
-        if (setAndExecuteUpdate(createQuery, order))
-        {
-            closeResources();
-            nullResources();
-        }
-        
-        LOG.info("[ENDING void create(Order order)]");
+        setCommonResources(createQuery);
+        pStatement.setString(1, order.getName());
+        pStatement.setString(2, order.concatContent());
+        final int response = pStatement.executeUpdate();
+        closeResources();
+        nullResources();
+
+        LOG.info("[ENDING void create(Order order) Response: " + response + "]");
     }
 
     @Override
@@ -67,6 +70,7 @@ public class MySQLDAO implements IDAO {
 
         closeResources();
         nullResources();
+        
         LOG.info("[ENDING void remove(Order order)]");
     }
 
@@ -79,7 +83,7 @@ public class MySQLDAO implements IDAO {
         pStatement.setInt(1, id);
         resultSet = pStatement.executeQuery();
         
-        if (resultSet.next() && !resultSet.isClosed())
+        if (Objects.nonNull(resultSet) && !resultSet.isClosed() && resultSet.next())
         {
             order.setId(resultSet.getInt("ID"));
             order.setName(resultSet.getString("NAME"));
@@ -93,52 +97,51 @@ public class MySQLDAO implements IDAO {
     }
 
     @Override
-    public Set<Order> findAll() {
-        return null;
-    }
+    public Set<Order> findAll() throws SQLException {
+        LOG.info("[ENTERING Set<Order> findAll()]");
 
-    private boolean setAndExecuteQuery(final Querys query) throws SQLException 
-    {
-        setCommonResources(query);
+        final Set<Order> orders = new HashSet<>();
+        setCommonResources(Querys.FIND_ALL);
         resultSet = pStatement.executeQuery();
-
-        if (Objects.nonNull(resultSet))
-            return true;
-        return false;
+        if (Objects.nonNull(resultSet) && !resultSet.isClosed())
+            while(resultSet.next())
+            {
+                final Order order = new Order();
+                order.setId(resultSet.getInt("ID"));
+                order.setName(resultSet.getString("NAME"));
+                order.setConcatContent(resultSet.getString("CONTENT"));
+                orders.add(order);
+            }
+        closeResources();
+        nullResources();
+        
+        LOG.info("[ENDING Set<Order> findAll() Orders -> " + orders + "]");
+        return orders;
     }
 
-
-    private boolean setAndExecuteUpdate(final Querys query, final Order order) throws SQLException {
-        
-        setCommonResources(query);
-        String content = "";
-        for (String commandLine : order.getContent())
-            content += commandLine + "|";
-        
-        pStatement.setString(1, order.getName());
-        pStatement.setString(2, content);
-        boolean result = pStatement.execute();
-        return result;
-    }
-
-    private void setCommonResources(final Querys query) throws SQLException 
-    {
+    private void setCommonResources(final Querys query) throws SQLException {
         connection = manager.connect();
         pStatement = connection.prepareStatement(query.toString());
     }
 
     private void closeResources() throws SQLException
     {
+        LOG.info("[ENTERING void closeResources() throws SQLException]");
+
         if (Objects.nonNull(connection) || !connection.isClosed())
             connection.close();
         if (Objects.nonNull(pStatement) || !pStatement.isClosed())
             pStatement.close();
         if (Objects.nonNull(resultSet) || !resultSet.isClosed())
             resultSet.close();
+        
+        LOG.info("[ENDING void closeResources() throws SQLException]");
     }
 
     private void nullResources() 
     {
+        LOG.info("[NULLING RESOURCES -> void closeResources() throws SQLException]");
+
         connection = null;
         pStatement = null;
         resultSet = null;
