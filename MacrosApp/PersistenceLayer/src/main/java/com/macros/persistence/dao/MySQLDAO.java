@@ -111,6 +111,8 @@ public class MySQLDAO implements IDAO {
                 order.setId(resultSet.getInt("ID"));
                 order.setName(resultSet.getString("NAME"));
                 order.setContent(resultSet.getString("CONTENT"));
+                order.setRequestedDate(IDAO.toLocalDateTime(resultSet.getString("REQUESTED_DATE")));
+                order.setParsedDate(IDAO.toLocalDateTime(resultSet.getString("PARSED_DATE")));
                 orders.add(order);
             }
         closeResources();
@@ -123,7 +125,7 @@ public class MySQLDAO implements IDAO {
     @Override
     public List<ExecutedOrder> executedOrders() throws SQLException {
         LOG.info("[ENTERIGN List<Orde> executedOrders() throws SQLException]");
-        
+
         final List<ExecutedOrder> executedOrders = new ArrayList<>();
         setCommonResources(Querys.LIST_EXECUTED_ORDERS);
         final ResultSet resultSet = pStatement.executeQuery();

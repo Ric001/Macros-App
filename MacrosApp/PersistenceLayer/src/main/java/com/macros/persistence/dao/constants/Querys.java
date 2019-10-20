@@ -12,7 +12,7 @@ public enum Querys {
            case CREATE: return "INSERT INTO Orders(NAME, CONTENT) VALUES(? ,?)";
            case MODIFY: return "UPDATE Orders SET NAME = ?, SET CONTENT = ? WHERE Orders.ID = ?";
            case REMOVE: return "DELETE FROM Orders WHERE ID = ?";
-           case LIST_EXECUTED_ORDERS: return "SELECT * FROM Orders INNER JOIN EXECUTIONS WHRE Orders.OrdersID = EXECUTIONS.EXECUTED_ORDER";
+           case LIST_EXECUTED_ORDERS: return "SELECT * FROM executions_order";
            default: return "TRYING TO USE AN UNSUPPORTED QUERY OPTION";
        }
    }
