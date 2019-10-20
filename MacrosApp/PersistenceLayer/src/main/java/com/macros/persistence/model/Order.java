@@ -1,25 +1,44 @@
 package com.macros.persistence.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class Order implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     private String name;
     private Integer id;
-    private String[] content;
+    private String content;
+    private LocalDateTime requestedDate;
+    private LocalDateTime parsedDate;
 
     public String getName() {
         return name;
     }
 
-    public String[] getContent() {
+    public LocalDateTime getParsedDate() {
+        return parsedDate;
+    }
+
+    public void setParsedDate(LocalDateTime parsedDate) {
+        this.parsedDate = parsedDate;
+    }
+
+    public LocalDateTime getRequestedDate() {
+        return requestedDate;
+    }
+
+    public void setRequestedDate(LocalDateTime requestedDate) {
+        this.requestedDate = requestedDate;
+    }
+
+    public String getContent() {
         return content;
     }
 
-    public void setContent(String[] content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -35,23 +54,13 @@ public class Order implements Serializable {
         this.name = name;
     }
 
-    public String concatContent() {
-        final StringBuffer buffer = new StringBuffer();
-        
-        for (String orderline : content)
-            buffer.append(orderline + "|");
-        
-        return buffer.toString();
-    }
-
-    public void setConcatContent(String content) {
-        this.content = content.split("|");
-    }
-
     @Override
     public String toString() {
-        return "Order [content=" + Arrays.toString(content) + ", id=" + id + ", name=" + name + "]";
+        return "Order [content=" + content + ", id=" + id + ", name=" + name + ", parsedDate=" + parsedDate
+                + ", requestedDate=" + requestedDate + "]";
     }
 
+
+   
     
 }

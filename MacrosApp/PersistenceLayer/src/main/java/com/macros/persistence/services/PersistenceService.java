@@ -1,22 +1,27 @@
 package com.macros.persistence.services;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import com.macros.persistence.dao.IDAO;
 import com.macros.persistence.dao.MySQLDAO;
+import com.macros.persistence.model.ExecutedOrder;
 import com.macros.persistence.model.Order;
 
 public class PersistenceService implements IPersistenceService {
 
     private IDAO dao;
     private final static Logger LOG = Logger.getLogger(PersistenceService.class.getName());
-    public PersistenceService() 
-    {
+
+    public PersistenceService() {
         dao = new MySQLDAO();
     }
+
     @Override
     public void create(Order order) {
         LOG.info("[ENTERING void create(Order order)]");
@@ -45,7 +50,7 @@ public class PersistenceService implements IPersistenceService {
 
     @Override
     public void remove(Order order) {
-       LOG.info("[ENTERING void remove(Order order)]");
+        LOG.info("[ENTERING void remove(Order order)]");
 
         try {
             dao.remove(order);
@@ -53,7 +58,7 @@ public class PersistenceService implements IPersistenceService {
             e.printStackTrace();
         }
 
-       LOG.info("[ENDING void remove(Order order)]");
+        LOG.info("[ENDING void remove(Order order)]");
     }
 
     @Override
@@ -87,9 +92,22 @@ public class PersistenceService implements IPersistenceService {
     }
 
     @Override
+    public List<ExecutedOrder> executedOrders() {
+        LOG.info("[ENTERING List<ExecutedOrder> executedOrders()]");
+        List<ExecutedOrder> executedOrders = new ArrayList<>();
+
+        try {
+            executedOrders = dao.executedOrders();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        LOG.info("[ENTERING List<ExecutedOrder> executedOrders()]");
+        return Collections.unmodifiableList(executedOrders);
+    }
+
+    @Override
     public String toString() {
         return "PersistenceService [dao=" + dao + "]";
     }
-
-    
 }

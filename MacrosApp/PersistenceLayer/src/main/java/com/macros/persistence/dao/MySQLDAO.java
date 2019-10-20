@@ -4,13 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import com.macros.persistence.dao.connectionlogic.ConnectionManager;
 import com.macros.persistence.dao.constants.Querys;
+import com.macros.persistence.model.ExecutedOrder;
 import com.macros.persistence.model.Order;
 
 public class MySQLDAO implements IDAO {
@@ -27,14 +31,13 @@ public class MySQLDAO implements IDAO {
     }
 
     @Override
-    public void create(Order order) throws SQLException 
-    {
+    public void create(Order order) throws SQLException {
         LOG.info("[ENTERING void create(Order order)]");
 
         final Querys createQuery = Querys.CREATE;
         setCommonResources(createQuery);
         pStatement.setString(1, order.getName());
-        pStatement.setString(2, order.concatContent());
+        pStatement.setString(2, order.getContent());
         final int response = pStatement.executeUpdate();
         closeResources();
         nullResources();
@@ -51,18 +54,18 @@ public class MySQLDAO implements IDAO {
         setCommonResources(modifyQuery);
         pStatement.setInt(1, order.getId());
         pStatement.setString(2, order.getName());
-        pStatement.setString(3, order.concatContent());
+        pStatement.setString(3, order.getContent());
         final int result = pStatement.executeUpdate();
         closeResources();
         nullResources();
-    
+
         LOG.info("[ENDING void modify(Order order) " + result + "]");
     }
 
     @Override
     public void remove(Order order) throws SQLException {
         LOG.info("[ENTERING void remove(Order order)]");
-        
+
         final Querys removeQuery = Querys.REMOVE;
         setCommonResources(removeQuery);
         pStatement.setInt(1, order.getId());
@@ -70,7 +73,7 @@ public class MySQLDAO implements IDAO {
 
         closeResources();
         nullResources();
-        
+
         LOG.info("[ENDING void remove(Order order)]");
     }
 
@@ -82,14 +85,13 @@ public class MySQLDAO implements IDAO {
         setCommonResources(Querys.FIND_BY_ID);
         pStatement.setInt(1, id);
         resultSet = pStatement.executeQuery();
-        
-        if (Objects.nonNull(resultSet) && !resultSet.isClosed() && resultSet.next())
-        {
+
+        if (Objects.nonNull(resultSet) && !resultSet.isClosed() && resultSet.next()) {
             order.setId(resultSet.getInt("ID"));
             order.setName(resultSet.getString("NAME"));
-            order.setConcatContent(resultSet.getString("CONTENT"));
+            order.setContent(resultSet.getString("CONTENT"));
         }
-        
+
         closeResources();
         nullResources();
         LOG.info("[RETURNING FROM Order findOrderById(Integer id) throws SQLException " + order + "]");
@@ -104,19 +106,41 @@ public class MySQLDAO implements IDAO {
         setCommonResources(Querys.FIND_ALL);
         resultSet = pStatement.executeQuery();
         if (Objects.nonNull(resultSet) && !resultSet.isClosed())
-            while(resultSet.next())
-            {
+            while (resultSet.next()) {
                 final Order order = new Order();
                 order.setId(resultSet.getInt("ID"));
                 order.setName(resultSet.getString("NAME"));
-                order.setConcatContent(resultSet.getString("CONTENT"));
+                order.setContent(resultSet.getString("CONTENT"));
                 orders.add(order);
             }
         closeResources();
         nullResources();
-        
+
         LOG.info("[ENDING Set<Order> findAll() Orders -> " + orders + "]");
         return orders;
+    }
+
+    @Override
+    public List<ExecutedOrder> executedOrders() throws SQLException {
+        LOG.info("[ENTERIGN List<Orde> executedOrders() throws SQLException]");
+        
+        final List<ExecutedOrder> executedOrders = new ArrayList<>();
+        setCommonResources(Querys.LIST_EXECUTED_ORDERS);
+        final ResultSet resultSet = pStatement.executeQuery();
+        if (Objects.nonNull(resultSet) && !resultSet.isClosed())
+            while(resultSet.next())
+            {
+                final Integer id = resultSet.getInt("EXECUTIONS_ID");
+                final Integer executedOrderId = resultSet.getInt("EXECUTED_ORDER");
+                final LocalDateTime executionDateTime = IDAO.toLocalDateTime(resultSet.getDate("EXECTION_DATE"));
+                final ExecutedOrder executedOrder = new ExecutedOrder(id, findOrderById(executedOrderId), executionDateTime);
+                executedOrders.add(executedOrder);
+            }
+        closeResources();
+        nullResources();
+
+        LOG.info("[RETURNING FROM List<Order> executedOrders() throws SQLException]");
+        return executedOrders;
     }
 
     private void setCommonResources(final Querys query) throws SQLException {
@@ -124,8 +148,7 @@ public class MySQLDAO implements IDAO {
         pStatement = connection.prepareStatement(query.toString());
     }
 
-    private void closeResources() throws SQLException
-    {
+    private void closeResources() throws SQLException {
         LOG.info("[ENTERING void closeResources() throws SQLException]");
 
         if (Objects.nonNull(connection) || !connection.isClosed())
@@ -134,16 +157,17 @@ public class MySQLDAO implements IDAO {
             pStatement.close();
         if (Objects.nonNull(resultSet) || !resultSet.isClosed())
             resultSet.close();
-        
+
         LOG.info("[ENDING void closeResources() throws SQLException]");
     }
 
-    private void nullResources() 
-    {
+    private void nullResources() {
         LOG.info("[NULLING RESOURCES -> void closeResources() throws SQLException]");
 
         connection = null;
         pStatement = null;
         resultSet = null;
     }
+
+    
 }
