@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import com.macros.persistence.model.ExecutedOrder;
@@ -30,6 +31,21 @@ public interface IDAO {
     {
         if (Strings.nonNullOrEmpty(dateStr))
             return LocalDateTime.parse(dateStr);
+        return null;
+    }
+
+    public static Date toSqlDate(final String localDateTime) 
+    {
+        if (Strings.nonNullOrEmpty(localDateTime)) {
+            return Date.valueOf(localDateTime);
+        }
+        return null;
+    }
+
+    public static Date toSqlDate(final LocalDateTime localDateTime)
+    {
+        if (Objects.nonNull(localDateTime))
+            return toSqlDate(localDateTime.toString());
         return null;
     }
 }

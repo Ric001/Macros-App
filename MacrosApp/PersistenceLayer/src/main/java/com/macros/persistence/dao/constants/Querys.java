@@ -4,8 +4,9 @@ public enum Querys {
     FIND_ALL, FIND_BY_ID, 
     CREATE, MODIFY, REMOVE,LIST_EXECUTED_ORDERS;
 
-   public String toString() 
-   {
+    @Override
+    public String toString() 
+    {
        switch(this) {
            case FIND_ALL: return "SELECT * FROM Orders";
            case FIND_BY_ID: return "SELECT FROM Orders WHERE ID = ?";
@@ -15,6 +16,6 @@ public enum Querys {
            case LIST_EXECUTED_ORDERS: return "SELECT * FROM executions_order";
            default: return "TRYING TO USE AN UNSUPPORTED QUERY OPTION";
        }
-   }
+    }
     
 }
