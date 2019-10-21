@@ -14,6 +14,24 @@ public class Order implements Serializable {
     private LocalDateTime requestedDate;
     private LocalDateTime parsedDate;
 
+    public Order() {
+    }
+
+    public Order(String name, Integer id, String content, LocalDateTime requestedDate, LocalDateTime parsedDate) {
+        this.name = name;
+        this.id = id;
+        this.content = content;
+        this.requestedDate = requestedDate;
+        this.parsedDate = parsedDate;
+    }
+
+    public Order(String name, String content, LocalDateTime requestedDate, LocalDateTime parsedDate) {
+        this.name = name;
+        this.content = content;
+        this.requestedDate = requestedDate;
+        this.parsedDate = parsedDate;
+    }
+
     public String getName() {
         return name;
     }
@@ -59,8 +77,4 @@ public class Order implements Serializable {
         return "Order [content=" + content + ", id=" + id + ", name=" + name + ", parsedDate=" + parsedDate
                 + ", requestedDate=" + requestedDate + "]";
     }
-
-
-   
-    
 }

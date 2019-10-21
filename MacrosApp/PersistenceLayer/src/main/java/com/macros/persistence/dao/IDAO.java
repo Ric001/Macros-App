@@ -1,8 +1,11 @@
 package com.macros.persistence.dao;
 
+import java.sql.Timestamp;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -20,6 +23,9 @@ public interface IDAO {
     public Set<Order> findAll() throws SQLException;
     public List<ExecutedOrder> executedOrders() throws SQLException;
 
+    final static DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE; 
+    //final static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
     public static LocalDateTime toLocalDateTime(final Date date)
     { 
         if (Strings.nonNullOrEmpty(date.toString()))  
@@ -34,18 +40,23 @@ public interface IDAO {
         return null;
     }
 
-    public static Date toSqlDate(final String localDateTime) 
+    public static Timestamp toSqlTimestamp(final String localDateTime) 
     {
-        if (Strings.nonNullOrEmpty(localDateTime)) {
-            return Date.valueOf(localDateTime);
+        if (Strings.nonNullOrEmpty(localDateTime)) 
+            return toSqlTimestamp(LocalDateTime.parse(localDateTime.toString()));
+        return null;
+    }
+
+    public static Timestamp toSqlTimestamp(final LocalDateTime localDateTime)
+    {
+        if (Objects.nonNull(localDateTime))
+        {
+            final Timestamp timestamp = Timestamp.valueOf(localDateTime);
+            
+            return timestamp;
         }
         return null;
     }
 
-    public static Date toSqlDate(final LocalDateTime localDateTime)
-    {
-        if (Objects.nonNull(localDateTime))
-            return toSqlDate(localDateTime.toString());
-        return null;
-    }
+
 }

@@ -16,8 +16,8 @@ public class ConnectionManager {
     private static ConnectionLoader loader;
     private final static Logger LOG = Logger.getLogger(ConnectionManager.class.getName());
     
-    private final static String CREDENTIALS_FILE = "credentials.txt";
-    private final static String CONFIG_FOLDER = "\\config";
+    private final static String CREDENTIALS_FILE = "\\credentials.txt";
+    private final static String CONFIG_FOLDER = "config\\";
     
     private ConnectionManager() {
         loader = new ConnectionLoader(DBProviders.MYSQL, pathToConfiguration());
@@ -48,7 +48,7 @@ public class ConnectionManager {
     {
         LOG.info("[ENTERING String pathConfiguration()]");
 
-        final String route = new File(CONFIG_FOLDER).getAbsolutePath() + "\\" + CREDENTIALS_FILE; 
+        final String route = new File(CONFIG_FOLDER).getAbsolutePath() + CREDENTIALS_FILE; 
         
         LOG.info("[RETURNING FROM String pathConfiguration()]");
         return route;

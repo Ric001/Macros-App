@@ -21,14 +21,17 @@ public class ConnectionLoader {
     private DBLinks accessLink;
 
     public ConnectionLoader(DBProviders provider, String configurationFileRoute) {
+        System.out.println(configurationFileRoute);
+        this.configurationFileRoute = configurationFileRoute;
         setDBLinkType(provider);
         findConfigurationByRoute();
-        this.configurationFileRoute = configurationFileRoute;
     }
 
     public String connectionString() {
-        return new StringBuilder().append(accessLink + "/").append(dbName + "/").append(username + "/").append(password)
-                .toString();
+        final String connectionString = new StringBuilder().append(accessLink).append(dbName + "?user=")
+                .append(username + "&password=").append(password).toString();
+        System.out.println("Connection String => " + connectionString);
+        return connectionString;
     }
 
     private void setDBLinkType(DBProviders provider) {
@@ -41,9 +44,10 @@ public class ConnectionLoader {
     }
 
     private void setCredentials(final String credentialRead) {
-        if (Strings.nonNullOrEmpty(credentialRead)) 
-        {
-            final String[] credentialsArray = credentialRead.split("|");
+        if (Strings.nonNullOrEmpty(credentialRead)) {
+            System.out.println(credentialRead);
+            final String[] credentialsArray = credentialRead.split("@");
+            System.out.println("Credentials Array len =>" + credentialsArray.length);
             username = credentialsArray[0];
             password = credentialsArray[1];
             dbName = credentialsArray[2];
@@ -52,18 +56,16 @@ public class ConnectionLoader {
 
     private void findConfigurationByRoute() {
         BufferedReader bReader = null;
-        
         try {
             final File file = new File(configurationFileRoute);
             if (file.exists() && file.isFile()) {
                 bReader = new BufferedReader(new FileReader(file));
                 String credentialsString = bReader.readLine();
-                setCredentials(credentialsString);   
+                setCredentials(credentialsString);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } 
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             closeStream(bReader);

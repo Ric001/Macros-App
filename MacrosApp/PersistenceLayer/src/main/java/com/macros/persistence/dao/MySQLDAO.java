@@ -40,8 +40,8 @@ public class MySQLDAO implements IDAO {
         setCommonResources(createQuery);
         pStatement.setString(1, order.getName());
         pStatement.setString(2, order.getContent());
-        pStatement.setDate(3, IDAO.toSqlDate(order.getRequestedDate()));
-        pStatement.setDate(4, IDAO.toSqlDate(order.getParsedDate()));
+        pStatement.setTimestamp(3, IDAO.toSqlTimestamp(order.getRequestedDate()));
+        pStatement.setTimestamp(4, IDAO.toSqlTimestamp(order.getParsedDate()));
         final int response = pStatement.executeUpdate();
         closeResources();
         nullResources();
@@ -59,8 +59,8 @@ public class MySQLDAO implements IDAO {
         pStatement.setInt(1, order.getId());
         pStatement.setString(2, order.getName());
         pStatement.setString(3, order.getContent());
-        pStatement.setDate(4, IDAO.toSqlDate(order.getRequestedDate()));
-        pStatement.setDate(5, IDAO.toSqlDate(order.getParsedDate()));
+        pStatement.setTimestamp(4, IDAO.toSqlTimestamp(order.getRequestedDate()));
+        pStatement.setTimestamp(5, IDAO.toSqlTimestamp(order.getParsedDate()));
         final int result = pStatement.executeUpdate();
         closeResources();
         nullResources();
@@ -167,12 +167,12 @@ public class MySQLDAO implements IDAO {
     private void closeResources() throws SQLException {
         LOG.info("[ENTERING void closeResources() throws SQLException]");
 
-        if (Objects.nonNull(connection) || !connection.isClosed())
-            connection.close();
-        if (Objects.nonNull(pStatement) || !pStatement.isClosed())
-            pStatement.close();
-        if (Objects.nonNull(resultSet) || !resultSet.isClosed())
+        if (Objects.nonNull(resultSet) && !resultSet.isClosed())
             resultSet.close();
+         if (Objects.nonNull(pStatement) && !pStatement.isClosed())
+            pStatement.close();
+        if (Objects.nonNull(connection) && !connection.isClosed())
+            connection.close();
 
         LOG.info("[ENDING void closeResources() throws SQLException]");
     }
