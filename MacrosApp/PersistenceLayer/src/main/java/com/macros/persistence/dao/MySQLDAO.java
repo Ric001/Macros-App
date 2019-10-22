@@ -95,11 +95,11 @@ public class MySQLDAO implements IDAO {
         resultSet = pStatement.executeQuery();
 
         if (Objects.nonNull(resultSet) && !resultSet.isClosed() && resultSet.next()) {
-            order.setId(resultSet.getInt("ID"));
+            order.setId(resultSet.getInt("ORDERS_ID"));
             order.setName(resultSet.getString("NAME"));
             order.setContent(resultSet.getString("CONTENT"));
-            order.setRequestedDate(IDAO.toLocalDateTime(resultSet.getString("REQUESTED_DATE")));
-            order.setParsedDate(IDAO.toLocalDateTime(resultSet.getString("PARSED_DATE")));
+            order.setRequestedDate(IDAO.toLocalDateTime(resultSet.getTimestamp("REQUESTED_DATETIME")));
+            order.setParsedDate(IDAO.toLocalDateTime(resultSet.getDate("PARSED_DATE")));
         }
 
         closeResources();
@@ -110,20 +110,20 @@ public class MySQLDAO implements IDAO {
 
     //This method is used to list a set of orders.
     @Override
-    public Set<Order> findAll() throws SQLException {
+    public List<Order> findAll() throws SQLException {
         LOG.info("[ENTERING Set<Order> findAll()]");
 
-        final Set<Order> orders = new HashSet<>();
+        final List<Order> orders = new ArrayList<>();
         setCommonResources(Querys.FIND_ALL);
         resultSet = pStatement.executeQuery();
         if (Objects.nonNull(resultSet) && !resultSet.isClosed())
             while (resultSet.next()) {
                 final Order order = new Order();
-                order.setId(resultSet.getInt("ID"));
+                order.setId(resultSet.getInt("ORDERS_ID"));
                 order.setName(resultSet.getString("NAME"));
                 order.setContent(resultSet.getString("CONTENT"));
-                order.setRequestedDate(IDAO.toLocalDateTime(resultSet.getString("REQUESTED_DATE")));
-                order.setParsedDate(IDAO.toLocalDateTime(resultSet.getString("PARSED_DATE")));
+                order.setRequestedDate(IDAO.toLocalDateTime(resultSet.getTimestamp("REQUESTED_DATETIME")));
+                order.setParsedDate(IDAO.toLocalDateTime(resultSet.getDate("PARSED_DATE")));
                 orders.add(order);
             }
         closeResources();

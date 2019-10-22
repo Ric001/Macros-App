@@ -12,7 +12,7 @@ public interface IPersistenceService
     public void modify(Order order);
     public void remove(Order order);
     public Order findOrderById(Integer id);
-    public Set<Order> findAll();
+    public List<Order> findAll();
     public List<ExecutedOrder> executedOrders();
     
 }

@@ -47,7 +47,7 @@ public class ConnectionLoader {
         if (Strings.nonNullOrEmpty(credentialRead)) {
             System.out.println(credentialRead);
             final String[] credentialsArray = credentialRead.split("@");
-            System.out.println("Credentials Array len =>" + credentialsArray.length);
+            System.out.println("Credentials Array len => " + credentialsArray.length);
             username = credentialsArray[0];
             password = credentialsArray[1];
             dbName = credentialsArray[2];
@@ -70,7 +70,6 @@ public class ConnectionLoader {
         } finally {
             closeStream(bReader);
         }
-
     }
 
     private void closeStream(Reader reader) {

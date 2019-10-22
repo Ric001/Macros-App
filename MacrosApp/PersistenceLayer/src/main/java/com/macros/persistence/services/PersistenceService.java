@@ -77,10 +77,10 @@ public class PersistenceService implements IPersistenceService {
     }
 
     @Override
-    public Set<Order> findAll() {
+    public List<Order> findAll() {
         LOG.info("[ENTERING Set<Order> findAll()]");
 
-        Set<Order> orders = new HashSet<>();
+        List<Order> orders = new ArrayList<>();
         try {
             orders = dao.findAll();
         } catch (SQLException e) {
@@ -88,7 +88,7 @@ public class PersistenceService implements IPersistenceService {
         }
 
         LOG.info("RETURNING FROM Set<Order> findAll() WITH -> " + orders + "]");
-        return orders;
+        return Collections.unmodifiableList(orders);
     }
 
     @Override
