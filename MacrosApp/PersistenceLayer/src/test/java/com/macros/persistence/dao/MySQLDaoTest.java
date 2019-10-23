@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.macros.persistence.model.ExecutedOrder;
 import com.macros.persistence.model.Order;
 
 import org.junit.Test;
@@ -57,12 +58,42 @@ public class MySQLDaoTest {
     public void modifyTest() {
         final IDAO dao = new MySQLDAO();
         try {
-            final Order order = dao.findOrderById(1);
+            final Order order = dao.findOrderById(59);
             order.setName("[Toaster On At Morning]");
+            order.setContent("Iron Maiden");
+            System.out.println("======> Order " + order + "<========");
             dao.modify(order);
             assertNotNull(order);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void removeTest() {
+        final IDAO dao = new MySQLDAO();
+        assertNotNull(dao);
+        try {
+            final Order order = dao.findOrderById(60);
+            assertNotNull(order);
+            System.out.println("\n========> Order TO Remove <======= \n" + order);
+            dao.remove(order);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void executedOrdersTest()
+    {
+        final IDAO dao = new MySQLDAO();
+        try {
+            final List<ExecutedOrder> executedOrders =  dao.executedOrders();
+            assertNotNull(executedOrders);
+            assertNotEquals(executedOrders.size(), 0);
+            System.out.println("\n========> Exectued Orders <==========\n");
+            System.out.println(executedOrders + "\n");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -70,7 +101,7 @@ public class MySQLDaoTest {
     private Order order()
     {
         final String name = "Order needed";
-        final String content = "{orders: ['One', 'Two']}";
+        final String content = "Julues Verne";
         final LocalDateTime requDateTime = LocalDateTime.now();
         final LocalDateTime parsedDateTime = LocalDateTime.now();
         System.out.println(requDateTime);

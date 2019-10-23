@@ -16,7 +16,7 @@ public class ConnectionManager {
     private static ConnectionLoader loader;
     private final static Logger LOG = Logger.getLogger(ConnectionManager.class.getName());
     
-    private final static String CREDENTIALS_FILE = "\\credentials.txt";
+    private final static String CREDENTIALS_FILE = "\\application.properties";
     private final static String CONFIG_FOLDER = "config\\";
     
     private ConnectionManager() {

@@ -3,9 +3,7 @@ package com.macros.persistence.services;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import com.macros.persistence.dao.IDAO;
@@ -30,6 +28,9 @@ public class PersistenceService implements IPersistenceService {
             dao.create(order);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
         }
 
         LOG.info("[ENDING void create(Order order)]");
@@ -43,6 +44,9 @@ public class PersistenceService implements IPersistenceService {
             dao.modify(order);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
         }
 
         LOG.info("[ENDING void modify(Order order)]");
@@ -56,6 +60,9 @@ public class PersistenceService implements IPersistenceService {
             dao.remove(order);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
         }
 
         LOG.info("[ENDING void remove(Order order)]");
@@ -70,6 +77,9 @@ public class PersistenceService implements IPersistenceService {
             order = dao.findOrderById(id);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
         }
 
         LOG.info("[RETURNING FROM Order findOrderById(Integer id) " + order + "]");
@@ -85,6 +95,9 @@ public class PersistenceService implements IPersistenceService {
             orders = dao.findAll();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
         }
 
         LOG.info("RETURNING FROM Set<Order> findAll() WITH -> " + orders + "]");
@@ -100,6 +113,9 @@ public class PersistenceService implements IPersistenceService {
             executedOrders = dao.executedOrders();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
         }
 
         LOG.info("[ENTERING List<ExecutedOrder> executedOrders()]");
@@ -109,5 +125,37 @@ public class PersistenceService implements IPersistenceService {
     @Override
     public String toString() {
         return "PersistenceService [dao=" + dao + "]";
+    }
+
+    @Override
+    public void create(ExecutedOrder executedOrder) {
+
+    }
+
+    @Override
+    public void modify(ExecutedOrder executedOrder) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void remove(ExecutedOrder executedOrder) {
+
+
+    }
+
+    @Override
+    public ExecutedOrder findExecutedOrderById(Integer id) {
+        LOG.info("[ENTERING ExecutedOrder findExecutedOrderById(Integer id)]");
+        try {
+            dao.findExecutedOrderById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
+        }
+        LOG.info("[ENDING ExecutedOrder findExecutedOrderById(Integer id)]");
+        return null;
     }
 }

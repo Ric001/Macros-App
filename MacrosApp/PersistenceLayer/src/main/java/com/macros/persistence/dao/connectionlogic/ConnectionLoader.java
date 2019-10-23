@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 import java.util.Objects;
+import java.util.Properties;
 
 import com.macros.persistence.dao.constants.DBLinks;
 import com.macros.persistence.dao.constants.DBProviders;
@@ -53,15 +55,27 @@ public class ConnectionLoader {
             dbName = credentialsArray[2];
         }
     }
+    
+    private void setCredentials(final Properties properties) {
+        if (Objects.nonNull(properties)) {
+            username = properties.getProperty("username");
+            password =  properties.getProperty("password");
+            dbName = properties.getProperty("db");
+        }
+    }
 
+    //Redisenar la logica de los properties
     private void findConfigurationByRoute() {
         BufferedReader bReader = null;
+   
         try {
             final File file = new File(configurationFileRoute);
             if (file.exists() && file.isFile()) {
                 bReader = new BufferedReader(new FileReader(file));
-                String credentialsString = bReader.readLine();
-                setCredentials(credentialsString);
+                //final String credentialsString = bReader.readLine();
+                //setCredentials(credentialsString);
+                //inputStream = this.getClass().getResourceAsStream(configurationFileRoute);
+                setCredentials(readToTheEnd(bReader));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -70,6 +84,13 @@ public class ConnectionLoader {
         } finally {
             closeStream(bReader);
         }
+    }
+
+    //ReadToTheEnd
+    private Properties readToTheEnd(final BufferedReader reader) throws IOException {
+        final Properties properties = new Properties();
+        properties.load(reader);
+        return properties;
     }
 
     private void closeStream(Reader reader) {
