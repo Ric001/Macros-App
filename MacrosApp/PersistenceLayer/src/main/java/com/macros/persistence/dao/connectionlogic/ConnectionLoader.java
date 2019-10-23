@@ -5,14 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 import java.util.Objects;
 import java.util.Properties;
 
 import com.macros.persistence.dao.constants.DBLinks;
 import com.macros.persistence.dao.constants.DBProviders;
-import com.ricks.utils.string.Strings;
 
 public class ConnectionLoader {
 
@@ -45,36 +43,20 @@ public class ConnectionLoader {
             }
     }
 
-    private void setCredentials(final String credentialRead) {
-        if (Strings.nonNullOrEmpty(credentialRead)) {
-            System.out.println(credentialRead);
-            final String[] credentialsArray = credentialRead.split("@");
-            System.out.println("Credentials Array len => " + credentialsArray.length);
-            username = credentialsArray[0];
-            password = credentialsArray[1];
-            dbName = credentialsArray[2];
-        }
-    }
-    
     private void setCredentials(final Properties properties) {
         if (Objects.nonNull(properties)) {
             username = properties.getProperty("username");
-            password =  properties.getProperty("password");
+            password = properties.getProperty("password");
             dbName = properties.getProperty("db");
         }
     }
 
-    //Redisenar la logica de los properties
     private void findConfigurationByRoute() {
         BufferedReader bReader = null;
-   
         try {
             final File file = new File(configurationFileRoute);
             if (file.exists() && file.isFile()) {
                 bReader = new BufferedReader(new FileReader(file));
-                //final String credentialsString = bReader.readLine();
-                //setCredentials(credentialsString);
-                //inputStream = this.getClass().getResourceAsStream(configurationFileRoute);
                 setCredentials(readToTheEnd(bReader));
             }
         } catch (FileNotFoundException e) {
@@ -86,7 +68,6 @@ public class ConnectionLoader {
         }
     }
 
-    //ReadToTheEnd
     private Properties readToTheEnd(final BufferedReader reader) throws IOException {
         final Properties properties = new Properties();
         properties.load(reader);
