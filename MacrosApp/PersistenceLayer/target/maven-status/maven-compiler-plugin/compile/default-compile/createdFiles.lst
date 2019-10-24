@@ -1,3 +1,4 @@
+com\macros\persistence\model\ExecutedOrder.class
 com\macros\persistence\dao\constants\Querys$1.class
 com\macros\persistence\dao\connectionlogic\ConnectionLoader.class
 com\macros\persistence\services\PersistenceService.class

@@ -1,4 +1,4 @@
-package com.ricks.utils.array;
+package com.ricks.utils.arrays_stuff;
 
 import java.util.Objects;
 

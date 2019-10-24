@@ -1,1 +1,3 @@
+com\macros\persistence\ConnectionManagerTest.class
+com\macros\persistence\dao\MySQLDaoTest.class
 com\macros\persistence\AppTest.class

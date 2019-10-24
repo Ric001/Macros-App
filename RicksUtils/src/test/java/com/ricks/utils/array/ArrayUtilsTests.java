@@ -3,6 +3,8 @@ package com.ricks.utils.array;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import com.ricks.utils.arrays_stuff.ArrayUtils;
+
 import org.junit.Test;
 
 public class ArrayUtilsTests {

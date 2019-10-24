@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import com.macros.persistence.dao.constants.DBLinks;
 import com.macros.persistence.dao.constants.DBProviders;
+import com.ricks.utils.ricksio.reader.ReadUtils;
 
 public class ConnectionLoader {
 
@@ -44,7 +45,7 @@ public class ConnectionLoader {
     }
 
     private void setCredentials(final Properties properties) {
-        if (Objects.nonNull(properties)) {
+        if (Objects.nonNull(properties) && !properties.isEmpty()) {
             username = properties.getProperty("username");
             password = properties.getProperty("password");
             dbName = properties.getProperty("db");
@@ -54,10 +55,12 @@ public class ConnectionLoader {
     private void findConfigurationByRoute() {
         BufferedReader bReader = null;
         try {
+
             final File file = new File(configurationFileRoute);
             if (file.exists() && file.isFile()) {
                 bReader = new BufferedReader(new FileReader(file));
-                setCredentials(readToTheEnd(bReader));
+                setCredentials(ReadUtils.readToEndOnProperties(bReader));
+                // setCredentials(readToTheEnd(bReader));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

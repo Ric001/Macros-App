@@ -54,7 +54,7 @@ public class MySQLDaoTest {
         }
     }
 
-    @Test 
+   /* @Test 
     public void modifyTest() {
         final IDAO dao = new MySQLDAO();
         try {
@@ -67,7 +67,7 @@ public class MySQLDaoTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Test
     public void removeTest() {

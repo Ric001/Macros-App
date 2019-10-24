@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.macros.persistence.dao.MySQLDaoTest
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.37 s - in com.macros.persistence.dao.MySQLDaoTest

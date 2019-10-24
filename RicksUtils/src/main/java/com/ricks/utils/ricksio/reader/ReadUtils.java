@@ -1,4 +1,4 @@
-package com.ricks.utils.io.reader;
+package com.ricks.utils.ricksio.reader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +14,8 @@ public class ReadUtils {
 
     private ReadUtils() {
     }
+
+    public final static String BUFFERED_READER_ERROR_MESSAGE = "TRYING TO READ FROM AN EMPTY BUFFER READER";
 
     private static void assertFileIsNotInvalid(final File file) throws IOException {
         if (Objects.isNull(file))
@@ -43,11 +45,20 @@ public class ReadUtils {
 
         final StringBuilder content = new StringBuilder();
         if (Objects.isNull(bReader))
-            return content.append("TRYING TO READ FROM AN EMPTY BUFFER READER").toString();
-        while(hasNextLine(bReader))
+            return content.append(BUFFERED_READER_ERROR_MESSAGE).toString();
+        while (hasNextLine(bReader))
             content.append(bReader.readLine());
 
         return content.toString();
+    }
+
+    public static Properties readToEndOnProperties(final BufferedReader bReader) throws IOException {
+
+        final Properties properties = new Properties();
+        if (Objects.isNull(bReader))
+            throw new NullPointerException(BUFFERED_READER_ERROR_MESSAGE);
+        properties.load(bReader);
+        return properties;
     }
 
     public static Properties readToEndOnProperties(final InputStream inputFlow) throws IOException {
@@ -58,7 +69,7 @@ public class ReadUtils {
     }
 
     public static boolean hasNextLine(BufferedReader bReader) throws IOException {
-        if (Objects.nonNull(bReader.readLine())) 
+        if (Objects.nonNull(bReader.readLine()))
             return true;
         return false;
     }
