@@ -11,6 +11,7 @@ import org.junit.Test;
 
 public class ReadUtilsTest {
 
+    //18095966033 PSIQ
     @Test
     public void readToEndOnPropertiesTest() {
         final String fileRoute = "C:\\Users\\jose osorio soto\\HDOOA\\Macros-App\\"
@@ -20,9 +21,9 @@ public class ReadUtilsTest {
         try {
             final BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             final Properties properties = ReadUtils.readToEndOnProperties(bufferedReader);
-            System.out.println("=====> User <======= " + properties.getProperty("username"));
-            System.out.println("=====> Pass <====== " + properties.getProperty("password"));
-            System.out.println("=====> DB <======= " + properties.getProperty("db"));
+            System.out.println("======> User <======== " + properties.getProperty("username"));
+            System.out.println("======> Pass <======= " + properties.getProperty("password"));
+            System.out.println("======> DB <========= " + properties.getProperty("db"));
         } catch (IOException e) {
             e.printStackTrace();
         }

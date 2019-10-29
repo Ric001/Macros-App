@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.macros.persistence.dao.connectionlogic.ConnectionManager;
+import com.macros.persistence.dao.constants.ExecutionQuerys;
 import com.macros.persistence.dao.constants.Querys;
 import com.macros.persistence.model.ExecutedOrder;
 import com.macros.persistence.model.Order;
@@ -20,7 +21,7 @@ public class MySQLDAO implements IDAO {
 
     private ConnectionManager manager;
     private Connection connection;
-    private ResultSet resultSet;
+
     private PreparedStatement pStatement;
 
     private final static Logger LOG = Logger.getLogger(MySQLDAO.class.getName());
@@ -81,7 +82,7 @@ public class MySQLDAO implements IDAO {
         final Order order = new Order();
         prepareStatementAndConnection(Querys.FIND_BY_ID);
         pStatement.setInt(1, id);
-        this.resultSet = pStatement.executeQuery();
+        final ResultSet resultSet = pStatement.executeQuery();
 
         if (Objects.nonNull(resultSet) && !resultSet.isClosed() && resultSet.next()) {
             order.setId(resultSet.getInt("ORDERS_ID"));
@@ -102,7 +103,7 @@ public class MySQLDAO implements IDAO {
 
         final List<Order> orders = new ArrayList<>();
         prepareStatementAndConnection(Querys.FIND_ALL);
-        resultSet = pStatement.executeQuery();
+        final ResultSet resultSet = pStatement.executeQuery();
         if (Objects.nonNull(resultSet) && !resultSet.isClosed())
             while (resultSet.next()) {
                 final Order order = new Order();
@@ -142,17 +143,46 @@ public class MySQLDAO implements IDAO {
 
     @Override
     public void create(ExecutedOrder executedOrder) throws SQLException {
+        LOG.info("[ENTERING List<Order> create() throws SQLException]");
+        if (Objects.isNull(executedOrder))
+            return;
 
+        prepareStatementAndConnection(ExecutionQuerys.CREATE);
+        pStatement.setInt(1, executedOrder.getExecutedOrder().getId());
+        pStatement.setTimestamp(2, IDAO.toSqlTimestamp(executedOrder.getExecutionDatetime()));
+        final int response = pStatement.executeUpdate();
+
+        LOG.info("[ENDING List<Order> create() throws SQLException -> Update Result: " + response + "]");
     }
 
     @Override
     public void modify(ExecutedOrder executedOrder) throws SQLException {
+        LOG.info("[ENTERING void modify(ExecutedOrder executedOrder) throws SQLException]");
+        
+        if (Objects.isNull(executedOrder))
+            return;
+        
+        prepareStatementAndConnection(ExecutionQuerys.MODIFY);
+        pStatement.setInt(1, executedOrder.getExecutedOrder().getId());
+        pStatement.setTimestamp(2, IDAO.toSqlTimestamp(executedOrder.getExecutionDatetime()));
+        final int response = pStatement.executeUpdate();
 
+        LOG.info("[ENDING void modify(ExecutedOrder executedOrder) throws SQLException response: " + response + "]");
     }
 
     @Override
     public void remove(ExecutedOrder executedOrder) throws SQLException {
+        LOG.info("[ENTERING void remove(ExecutedOrder executedOrder) throws SQLException]");
 
+        if (Objects.isNull(executedOrder))
+            return;
+        
+        prepareStatementAndConnection(ExecutionQuerys.REMOVE);
+        if (Objects.nonNull(pStatement) && !pStatement.isClosed())
+            pStatement.setInt(1, executedOrder.getId());
+        final int response = pStatement.executeUpdate();
+
+        LOG.info("[ENDING void remove(ExecutedOrder executedOrder) throws SQLException reponse -> " + response + "]");
     }
 
     @Override
@@ -180,14 +210,16 @@ public class MySQLDAO implements IDAO {
         pStatement = connection.prepareStatement(query.toString());
     }
 
+    private void prepareStatementAndConnection(final ExecutionQuerys query) throws SQLException {
+        connection = manager.connect();
+        pStatement = connection.prepareStatement(query.toString());
+    }
     // here we close all the resources which we dont need anymore
     @Override
     public void closeResources() {
         LOG.info("[ENTERING void closeResources() throws SQLException]");
 
         try {
-            if (Objects.nonNull(resultSet) && !resultSet.isClosed())
-                resultSet.close();
             if (Objects.nonNull(pStatement) && !pStatement.isClosed())
                 pStatement.close();
             if (Objects.nonNull(connection) && !connection.isClosed())
@@ -206,7 +238,6 @@ public class MySQLDAO implements IDAO {
 
         connection = null;
         pStatement = null;
-        resultSet = null;
 
         LOG.info("[connection = null; pStatement = null; resultSet = null]");
     }

@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.util.Objects;
 import java.util.Properties;
 
+
 import com.macros.persistence.dao.constants.DBLinks;
 import com.macros.persistence.dao.constants.DBProviders;
 import com.ricks.utils.ricksio.reader.ReadUtils;
@@ -60,7 +61,6 @@ public class ConnectionLoader {
             if (file.exists() && file.isFile()) {
                 bReader = new BufferedReader(new FileReader(file));
                 setCredentials(ReadUtils.readToEndOnProperties(bReader));
-                // setCredentials(readToTheEnd(bReader));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -71,14 +71,7 @@ public class ConnectionLoader {
         }
     }
 
-    private Properties readToTheEnd(final BufferedReader reader) throws IOException {
-        final Properties properties = new Properties();
-        properties.load(reader);
-        return properties;
-    }
-
     private void closeStream(Reader reader) {
-
         if (Objects.nonNull(reader)) {
             try {
                 reader.close();

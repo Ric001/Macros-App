@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import com.macros.persistence.dao.IDAO;
-import com.macros.persistence.dao.MySQLDAO;
 import com.macros.persistence.model.ExecutedOrder;
 import com.macros.persistence.model.Order;
 
@@ -16,8 +15,8 @@ public class PersistenceService implements IPersistenceService {
     private IDAO dao;
     private final static Logger LOG = Logger.getLogger(PersistenceService.class.getName());
 
-    public PersistenceService() {
-        dao = new MySQLDAO();
+    public PersistenceService(IDAO dao) {
+        this.dao = dao;
     }
 
     @Override
@@ -129,19 +128,51 @@ public class PersistenceService implements IPersistenceService {
 
     @Override
     public void create(ExecutedOrder executedOrder) {
+        LOG.info("[ENTERING void create(ExecutedOrder executedOrder)]");
 
+        try {
+            dao.create(executedOrder);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
+        }
+
+        LOG.info("[ENDING void create(ExecutedOrder executedOrder)]");
     }
 
     @Override
     public void modify(ExecutedOrder executedOrder) {
-        // TODO Auto-generated method stub
+        LOG.info("[ENTERING void modify(ExecutedOrder executedOrder)]");
+        
+        try {
+            dao.modify(executedOrder);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
+        }
 
+        LOG.info("[ENDING void modify(ExecutedOrder executedOrder)]");
     }
 
     @Override
     public void remove(ExecutedOrder executedOrder) {
-
-
+        LOG.info("[ENTERING void remove(ExecutedOrder executedOrder)]");
+        try {
+            dao.remove(executedOrder);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            dao.closeResources();
+            dao.nullResources();
+        }
+        LOG.info("[ENDING void remove(ExecutedOrder executedOrder)]");
     }
 
     @Override

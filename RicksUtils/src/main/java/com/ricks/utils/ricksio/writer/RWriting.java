@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Objects;
 
 import com.ricks.utils.string.Strings;
 
@@ -13,7 +14,7 @@ public class RWriting {
     }
 
     public static Boolean writeToTheEnd(final Appendable content, final File file) throws IOException {
-        if (Strings.isNullOrEmpty(content))
+        if (Strings.isNullOrEmpty(content) && Objects.isNull(file) && !file.exists())
             return false;
         return write(content, file);
     }
@@ -25,4 +26,5 @@ public class RWriting {
         writer.close();
         return true;
     }
+    
 }
