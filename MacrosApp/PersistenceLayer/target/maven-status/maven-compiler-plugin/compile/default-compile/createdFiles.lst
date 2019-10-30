@@ -6,6 +6,7 @@ com\macros\persistence\dao\constants\DBLinks.class
 com\macros\persistence\dao\constants\DBProviders$1.class
 com\macros\persistence\dao\constants\DBProviders.class
 com\macros\persistence\dao\IDAO.class
+com\macros\persistence\factory\MySQLDaoFactory$1.class
 com\macros\persistence\services\IPersistenceService.class
 com\macros\persistence\dao\constants\Querys.class
 com\macros\persistence\dao\constants\DBLinks$1.class

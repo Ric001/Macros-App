@@ -12,7 +12,7 @@ public class App
     public static void main( String[] args )
     {
         final DAOFactoryMethod daoFactoryMethod = new MySQLDaoFactory();
-        final IPersistenceService persistenceService = new PersistenceService(daoFactoryMethod.dao(DBProviders.MYSQL));
+        final IPersistenceService persistenceService = new PersistenceService(daoFactoryMethod.daoByProvider(DBProviders.MYSQL));
         persistenceService.create(new Order());
     }
 

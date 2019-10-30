@@ -5,5 +5,5 @@ import com.macros.persistence.dao.constants.DBProviders;
 
 @FunctionalInterface
 public interface DAOFactoryMethod {
-    IDAO dao(DBProviders provider);
+    IDAO daoByProvider(DBProviders provider);
 }

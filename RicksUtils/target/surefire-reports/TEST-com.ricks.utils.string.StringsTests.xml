@@ -7,7 +7,7 @@
     <property name="java.specification.version" value="1.8"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\Ricado Osorio Soto\DesignPatterns\Macros\RicksUtils\target\test-classes;C:\Users\Ricado Osorio Soto\DesignPatterns\Macros\RicksUtils\target\classes;C:\Users\Ricado Osorio Soto\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Ricado Osorio Soto\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.class.path" value="C:\Users\jose osorio soto\HDOOA\Macros-App\RicksUtils\target\test-classes;C:\Users\jose osorio soto\HDOOA\Macros-App\RicksUtils\target\classes;C:\Users\jose osorio soto\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\jose osorio soto\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -17,46 +17,46 @@
     <property name="os.name" value="Windows 10"/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_172\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\RICADO~1\AppData\Local\Temp\surefire5783619183424926542\surefirebooter648843129063791513.jar C:\Users\Ricado Osorio Soto\AppData\Local\Temp\surefire5783619183424926542 2019-10-19T18-23-24_274-jvmRun1 surefire6432125920760184433tmp surefire_03601576587685161620tmp"/>
-    <property name="surefire.test.class.path" value="C:\Users\Ricado Osorio Soto\DesignPatterns\Macros\RicksUtils\target\test-classes;C:\Users\Ricado Osorio Soto\DesignPatterns\Macros\RicksUtils\target\classes;C:\Users\Ricado Osorio Soto\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Ricado Osorio Soto\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\JOSEOS~1\AppData\Local\Temp\surefire5329681963727953392\surefirebooter1823438753304327768.jar C:\Users\jose osorio soto\AppData\Local\Temp\surefire5329681963727953392 2019-10-30T16-37-13_696-jvmRun1 surefire4945788823776090266tmp surefire_08474146872707018725tmp"/>
+    <property name="surefire.test.class.path" value="C:\Users\jose osorio soto\HDOOA\Macros-App\RicksUtils\target\test-classes;C:\Users\jose osorio soto\HDOOA\Macros-App\RicksUtils\target\classes;C:\Users\jose osorio soto\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\jose osorio soto\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\Ricado Osorio Soto"/>
+    <property name="user.home" value="C:\Users\jose osorio soto"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_172\jre"/>
-    <property name="basedir" value="C:\Users\Ricado Osorio Soto\DesignPatterns\Macros\RicksUtils"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_201\jre"/>
+    <property name="basedir" value="C:\Users\jose osorio soto\HDOOA\Macros-App\RicksUtils"/>
     <property name="file.separator" value="\"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\RICADO~1\AppData\Local\Temp\surefire5783619183424926542\surefirebooter648843129063791513.jar"/>
-    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_172\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_172\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_172\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_172\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_172\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_172\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_172\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_172\jre\classes"/>
+    <property name="surefire.real.class.path" value="C:\Users\JOSEOS~1\AppData\Local\Temp\surefire5329681963727953392\surefirebooter1823438753304327768.jar"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_201\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_201\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="1.8.0_172-b11"/>
-    <property name="user.name" value="Ricardo Osorio Soto"/>
+    <property name="java.runtime.version" value="1.8.0_201-b09"/>
+    <property name="user.name" value="Jose Osorio Soto"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
-    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_172\jre\lib\endorsed"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_201\jre\lib\endorsed"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="file.encoding" value="Cp1252"/>
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
-    <property name="localRepository" value="C:\Users\Ricado Osorio Soto\.m2\repository"/>
+    <property name="localRepository" value="C:\Users\jose osorio soto\.m2\repository"/>
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="C:\Users\RICADO~1\AppData\Local\Temp\"/>
-    <property name="java.version" value="1.8.0_172"/>
-    <property name="user.dir" value="C:\Users\Ricado Osorio Soto\DesignPatterns\Macros\RicksUtils"/>
+    <property name="java.io.tmpdir" value="C:\Users\JOSEOS~1\AppData\Local\Temp\"/>
+    <property name="java.version" value="1.8.0_201"/>
+    <property name="user.dir" value="C:\Users\jose osorio soto\HDOOA\Macros-App\RicksUtils"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_172\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Users\Ricado Osorio Soto\AppData\Local\Microsoft\WindowsApps;C:\Users\Ricado Osorio Soto\AppData\Roaming\npm;C:\Users\Ricado Osorio Soto\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Java\jdk1.8.0_172\bin;C:\apache-maven-3.6.0\bin;;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_201\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:\app\Jose_Osorio_Soto\product\11.2.0\client_1;D:\app\Jose_Osorio_Soto\product\11.2.0\client_1\bin;C:\Program Files\Java\jdk1.8.0_201\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\nodejs\;C:\apache-maven-3.6.0\bin;C:\Oracle\Middleware\Oracle_Home\user_projects\domains\base_domain;C:\Program Files\MongoDB\Server\4.0\bin;C:\apache-tomcat-8.5.38-windows-x64\apache-tomcat-8.5.38\bin;%CATALINA_HOME\bin%;C:\Program Files\MySQL\MySQL Server 8.0\bin\;C:\composer;C:\WINDOWS\System32\OpenSSH\;C:\MySQL\bin;C:\Program Files\Java\jdk1.8.0_201\bin;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\nodejs\;C:\apache-maven-3.6.0\bin;C:\Oracle\Middleware\Oracle_Home\user_projects\domains\base_domain;C:\Users\jose osorio soto\AppData\Local\Microsoft\WindowsApps;C:\Users\jose osorio soto\AppData\Local\Programs\Git\cmd;C:\Users\jose osorio soto\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\jose osorio soto\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA 2018.3.3\bin;C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe;C:\Users\jose osorio soto\AppData\Local\JetBrains\IntelliJ IDEA 2019.1.3\bin;;C:\xampp\php;C:\Users\jose osorio soto\AppData\Roaming\Composer\vendor\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.1.1\bin;;C:\Users\jose osorio soto\AppData\Local\Microsoft\WindowsApps;;."/>
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.version" value="25.172-b11"/>
-    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_172\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="java.vm.version" value="25.201-b09"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>

@@ -12,21 +12,25 @@ public class MySQLDaoFactory implements DAOFactoryMethod {
     private Logger LOG = Logger.getLogger(MySQLDAO.class.getName());
 
     @Override
-    public IDAO dao(DBProviders provider) {
+    public IDAO daoByProvider(DBProviders provider) {
         LOG.info("[ENTERING IDAO dao(DBProviders provider)]");
         if (Objects.isNull(provider))
             return null;
         
-        IDAO dao = performComparison(provider);
+        IDAO dao = lookupDaoType(provider);
         LOG.info("[RETURNING IDAO dao(DBProviders provider) " + dao);
         return dao;
     }
 
-    private IDAO performComparison(DBProviders provider) {
+    private IDAO lookupDaoType(DBProviders provider) {
+        LOG.info("[ENTERING IDAO lookupDaoType(DBProviders provider)]");
+        IDAO dao = null;
+        
         switch(provider) {
-            case MYSQL: return new MySQLDAO();
-            default: return null;
+            case MYSQL: dao = new MySQLDAO();
         }
+
+        LOG.info("[RETURNING FROM IDAO lookupDaoType(DBProviders provider) -> " + dao + " ]");
+        return dao;
     }
-    
 }
