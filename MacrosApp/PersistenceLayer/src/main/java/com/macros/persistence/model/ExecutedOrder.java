@@ -1,6 +1,9 @@
 package com.macros.persistence.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
+
+import com.macros.persistence.dao.constants.DateFormatters;
 
 public class ExecutedOrder {
 
@@ -49,9 +52,16 @@ public class ExecutedOrder {
         this.executionDatetime = executionDatetime;
     }
 
+    public String formatExecutionDateTime() {
+        String datetime = "NOT A DATE TIME PROVIDED";
+        if (Objects.nonNull(executionDatetime))
+            datetime = executionDatetime.format(DateFormatters.DATE_TIME_FORMATTER);
+        return datetime;
+    }
+
     @Override
     public String toString() {
-        return "ExecutedOrder [executedOrder=" + executedOrder + ", executionDatetime=" + executionDatetime + ", id="
+        return "ExecutedOrder [executedOrder=" + executedOrder + ", executionDatetime=" + formatExecutionDateTime() + ", id="
                 + id + "]";
     }
 }

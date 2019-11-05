@@ -14,9 +14,9 @@ import java.util.Properties;
 
 import com.ricks.utils.ricksio.enums.AppendableTypes;
 
-public class ReadUtils {
+public final class ReadUtils {
 
-    private ReadUtils() {
+    protected ReadUtils() {
     }
 
     public final static String BUFFERED_READER_ERROR_MESSAGE = "TRYING TO READ FROM AN EMPTY BUFFER READER";

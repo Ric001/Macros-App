@@ -133,7 +133,6 @@ public class PersistenceService implements IPersistenceService {
         try {
             dao.create(executedOrder);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             dao.closeResources();
@@ -150,7 +149,6 @@ public class PersistenceService implements IPersistenceService {
         try {
             dao.modify(executedOrder);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             dao.closeResources();
@@ -166,7 +164,6 @@ public class PersistenceService implements IPersistenceService {
         try {
             dao.remove(executedOrder);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             dao.closeResources();

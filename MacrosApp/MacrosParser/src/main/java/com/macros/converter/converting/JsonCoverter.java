@@ -19,7 +19,7 @@ public class JsonCoverter<T> implements IConverter<T> {
     }
 
     @Override
-    public T parse(String value, Optional<Class> clazz) {
+    public T parse(String value, Optional<Class<T>> clazz) {
         log.info("[ENTERING parse(string value)]");
 
         T parsed = null;
@@ -56,7 +56,7 @@ public class JsonCoverter<T> implements IConverter<T> {
         }
     }
 
-    private T hanlingException(String value, Class clazz) {
+    private T hanlingException(String value, Class<T> clazz) {
         try {
             @SuppressWarnings("unchecked")
             final T parsedTDD = (T) jsonMapper.get().readValue(value, clazz);

@@ -2,6 +2,9 @@ package com.macros.persistence.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
+
+import com.macros.persistence.dao.constants.DateFormatters;
 
 
 public class Order implements Serializable {
@@ -72,9 +75,16 @@ public class Order implements Serializable {
         this.name = name;
     }
 
+    public String formatDateTime(final LocalDateTime localDateTime) {
+        String datetime = "NOT A DATE TIME INSTANCE PROVIDED";
+        if (Objects.nonNull(localDateTime))
+            datetime = localDateTime.format(DateFormatters.DATE_TIME_FORMATTER);
+        return datetime;
+    }
+
     @Override
     public String toString() {
-        return "Order [content=" + content + ", id=" + id + ", name=" + name + ", parsedDate=" + parsedDate
-                + ", requestedDate=" + requestedDate + "]";
+        return "Order [content=" + content + ", id=" + id + ", name=" + name + ", parsedDate=" + formatDateTime(parsedDate)
+                + ", requestedDate=" + formatDateTime(requestedDate) + "]";
     }
 }

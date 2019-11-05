@@ -18,7 +18,7 @@ public class JavaSerializer<T> implements IConverter<T> {
     private final static Logger log = Logger.getLogger(JavaSerializer.class.getName());
 
     @Override
-    public T parse(String value, Optional<Class> clazz) {
+    public T parse(String value, Optional<Class<T>> clazz) {
         log.info("[ENTERING T parse(string value, Optional<Class> clazz)]");
 
         T parsedObj = null;
@@ -73,7 +73,4 @@ public class JavaSerializer<T> implements IConverter<T> {
         } 
        return null;
     }
-
-    
-    
 }

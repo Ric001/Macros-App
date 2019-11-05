@@ -1,3 +1,4 @@
 com\ricks\utils\string\Strings.class
 com\ricks\utils\ricksio\reader\ReadUtils$1.class
 com\ricks\App.class
+com\ricks\utils\ricksio\enums\AppendableTypes$1.class

@@ -11,12 +11,13 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.macros.persistence.dao.connectionlogic.ConnectionManager;
+import com.macros.persistence.dao.constants.DBProviders;
 import com.macros.persistence.dao.constants.ExecutionQuerys;
 import com.macros.persistence.dao.constants.Querys;
 import com.macros.persistence.model.ExecutedOrder;
 import com.macros.persistence.model.Order;
 
-//MySQLDAO is the Implementation of the IDAO interface to the MySQL Database Provider
+
 public class MySQLDAO implements IDAO {
 
     private ConnectionManager manager;
@@ -25,11 +26,10 @@ public class MySQLDAO implements IDAO {
 
     private final static Logger LOG = Logger.getLogger(MySQLDAO.class.getName());
 
-    public MySQLDAO() {
-        manager = ConnectionManager.manager();
+    public MySQLDAO(DBProviders provider) {
+        manager = ConnectionManager.manager(provider);
     }
 
-   
     @Override
     public void create(Order order) throws SQLException {
         LOG.info("[ENTERING void create(Order order)]");
@@ -132,7 +132,6 @@ public class MySQLDAO implements IDAO {
                     order.setParsedDate(IDAO.toLocalDateTime(resultSet.getDate("PARSED_DATE")));
                     orders.add(order);
                 }
-
         }
 
         LOG.info("[ENDING Set<Order> findAll() Orders -> " + orders + "]");
@@ -151,7 +150,6 @@ public class MySQLDAO implements IDAO {
                 pStatement.setInt(1, executedOrder.getExecutedOrder().getId());
                 pStatement.setTimestamp(2, IDAO.toSqlTimestamp(executedOrder.getExecutionDatetime()));
                 response = pStatement.executeUpdate();
-
             }
         }
 
@@ -197,11 +195,11 @@ public class MySQLDAO implements IDAO {
         LOG.info("[ENTERING void findExecutedOrderById(Integer id) throws SQLException]");
 
         final ExecutedOrder executedOrder = new ExecutedOrder();
-        prepareStatementAndConnection(Querys.FIND_EXECUTED_ORDER_BY_ID);
+        prepareStatementAndConnection(ExecutionQuerys.FIND_BY_ID);
         pStatement.setInt(1, id);
-        if (Objects.nonNull(pStatement) && pStatement.isClosed()) {
+        if (Objects.nonNull(pStatement) && !pStatement.isClosed()) {
             final ResultSet _resultSet = pStatement.executeQuery();
-            if (Objects.nonNull(_resultSet) && _resultSet.isClosed() && _resultSet.isClosed()) {
+            if (Objects.nonNull(_resultSet) && !_resultSet.isClosed() && _resultSet.next()) {
                 executedOrder.setId(_resultSet.getInt("EXECUTIONS_ID"));
                 executedOrder.setExecutedOrder(findOrderById(_resultSet.getInt("EXECUTED_ORDER")));
                 executedOrder.setExecutionDatetime(IDAO.toLocalDateTime(_resultSet.getTimestamp("EXECUTION_DATE")));
@@ -213,12 +211,12 @@ public class MySQLDAO implements IDAO {
 
     @Override
     public List<ExecutedOrder> executedOrders() throws SQLException {
-        LOG.info("[ENTERIGN List<Orde> executedOrders() throws SQLException]");
+        LOG.info("[ENTERING List<Orde> executedOrders() throws SQLException]");
 
         final List<ExecutedOrder> executedOrders = new ArrayList<>();
-        prepareStatementAndConnection(Querys.LIST_EXECUTED_ORDERS);
+        prepareStatementAndConnection(ExecutionQuerys.FIND_ALL);
 
-        if (Objects.nonNull(pStatement) && pStatement.isClosed()) {
+        if (Objects.nonNull(pStatement) && !pStatement.isClosed()) {
             final ResultSet _resultSet = pStatement.executeQuery();
 
             if (Objects.nonNull(_resultSet) && !_resultSet.isClosed()) {

@@ -23,18 +23,18 @@ public class RWriting {
         return write(content, file);
     }
 
-    public static Boolean writeToTheEnd(final Optional<List<File>> filesMapWrapper, List<StringBuilder> contentList)
+    public static Boolean writeToTheEnd(final Optional<List<File>> filesWrapper, List<StringBuilder> contentList)
             throws IOException {
 
-        if (Objects.isNull(filesMapWrapper) || !filesMapWrapper.isPresent())
+        if (Objects.isNull(filesWrapper) || !filesWrapper.isPresent())
             return false;
         if (Objects.isNull(contentList) || contentList.isEmpty())
             return false;
-        if (contentList.size() != filesMapWrapper.get().size())
+        if (contentList.size() != filesWrapper.get().size())
             return false;
             
-        final List<File> files = filesMapWrapper.get();
-        for (int i = 0; i < filesMapWrapper.get().size(); i++) {
+        final List<File> files = filesWrapper.get();
+        for (int i = 0; i < filesWrapper.get().size(); i++) {
             write(contentList.get(i), files.get(i));
         }
 

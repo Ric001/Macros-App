@@ -16,18 +16,18 @@ public class ConnectionManager {
     private static ConnectionLoader loader;
     private final static Logger LOG = Logger.getLogger(ConnectionManager.class.getName());
     
-    private final static String CREDENTIALS_FILE = "\\application.properties";
-    private final static String CONFIG_FOLDER = "config\\";
+    public final static String CREDENTIALS_FILE = "\\application.properties";
+    public final static String CONFIG_FOLDER = "config\\";
     
-    private ConnectionManager() {
-        loader = new ConnectionLoader(DBProviders.MYSQL, pathToConfiguration());
+    private ConnectionManager(DBProviders provider) {
+        loader = new ConnectionLoader(provider, pathToConfiguration());
     }
 
-    public synchronized static ConnectionManager manager() {
+    public synchronized static ConnectionManager manager(DBProviders provider) {
         LOG.info("[ENTERING static ConnectionManager manager()]");
 
         if (Objects.isNull(manager))
-            manager = new ConnectionManager();
+            manager = new ConnectionManager(provider);
 
         LOG.info("[RETURNING FROM static ConnectionManager manager() " + manager + "]");
         return manager;
@@ -40,7 +40,7 @@ public class ConnectionManager {
             if (Objects.nonNull(loader))
                 connection = DriverManager.getConnection(loader.connectionString());
         
-        LOG.info("[RETURNING Connection connect() throws SQLException " + connection + "]");
+        LOG.info("[RETURNING Connection connect() throws SQLException " + connection + " ==> " + loader.toString() + "]");
         return connection;
     }
 

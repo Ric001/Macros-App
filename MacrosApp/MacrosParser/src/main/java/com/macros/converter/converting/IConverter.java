@@ -5,7 +5,7 @@ import java.util.Optional;
 public interface IConverter<T> 
 {
 
-    T parse(final String value, Optional<Class> clazz);
+    T parse(final String value, Optional<Class<T>> clazz);
     String serialize(final T objToConvert);
     
 }

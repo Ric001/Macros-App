@@ -9,9 +9,9 @@ import java.io.Reader;
 import java.util.Objects;
 import java.util.Properties;
 
-
 import com.macros.persistence.dao.constants.DBLinks;
 import com.macros.persistence.dao.constants.DBProviders;
+
 import com.ricks.utils.ricksio.reader.ReadUtils;
 
 public class ConnectionLoader {
@@ -32,7 +32,7 @@ public class ConnectionLoader {
     public String connectionString() {
         final String connectionString = new StringBuilder().append(accessLink).append(dbName + "?user=")
                 .append(username + "&password=").append(password).toString();
-        System.out.println("Connection String => " + connectionString);
+        System.out.println(String.format("======> Connection String ====> [%s]", connectionString));
         return connectionString;
     }
 
@@ -42,6 +42,7 @@ public class ConnectionLoader {
             case MYSQL:
                 accessLink = DBLinks.MYSQL_LINK;
                 break;
+            default: accessLink = DBLinks.UNSUPPORTED_DB_LINK;
             }
     }
 
@@ -56,9 +57,9 @@ public class ConnectionLoader {
     private void findConfigurationByRoute() {
         BufferedReader bReader = null;
         try {
-
             final File file = new File(configurationFileRoute);
             if (file.exists() && file.isFile()) {
+                System.out.println("File Exists ");
                 bReader = new BufferedReader(new FileReader(file));
                 setCredentials(ReadUtils.readToEndOnProperties(bReader));
             }
