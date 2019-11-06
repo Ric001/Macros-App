@@ -146,7 +146,7 @@ public class MySQLDAO implements IDAO {
         int response = 0;
         if (Objects.nonNull(executedOrder)) {
             prepareStatementAndConnection(ExecutionQuerys.CREATE);
-            if (Objects.nonNull(pStatement) && pStatement.isClosed()) {
+            if (Objects.nonNull(pStatement) && !pStatement.isClosed()) {
                 pStatement.setInt(1, executedOrder.getExecutedOrder().getId());
                 pStatement.setTimestamp(2, IDAO.toSqlTimestamp(executedOrder.getExecutionDatetime()));
                 response = pStatement.executeUpdate();
@@ -160,12 +160,13 @@ public class MySQLDAO implements IDAO {
     public void modify(ExecutedOrder executedOrder) throws SQLException {
         LOG.info("[ENTERING void modify(ExecutedOrder executedOrder) throws SQLException]");
 
-        int response = 0;
-        if (Objects.isNull(executedOrder)) {
+        int response = -1;
+        if (Objects.nonNull(executedOrder)) {
             prepareStatementAndConnection(ExecutionQuerys.MODIFY);
             if (Objects.nonNull(pStatement) && !pStatement.isClosed()) {
                 pStatement.setInt(1, executedOrder.getExecutedOrder().getId());
                 pStatement.setTimestamp(2, IDAO.toSqlTimestamp(executedOrder.getExecutionDatetime()));
+                pStatement.setInt(3, executedOrder.getId());
                 response = pStatement.executeUpdate();
             }
         }
@@ -184,9 +185,7 @@ public class MySQLDAO implements IDAO {
                 pStatement.setInt(1, executedOrder.getId());
                 response = pStatement.executeUpdate();
             }
-
         }
-
         LOG.info("[ENDING void remove(ExecutedOrder executedOrder) throws SQLException reponse -> " + response + "]");
     }
 

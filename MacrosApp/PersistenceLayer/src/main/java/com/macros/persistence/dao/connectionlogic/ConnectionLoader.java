@@ -59,7 +59,8 @@ public class ConnectionLoader {
         try {
             final File file = new File(configurationFileRoute);
             if (file.exists() && file.isFile()) {
-                System.out.println("File Exists ");
+                System.out.println(String.format(">>>>> Route Maps To A File? >>>> [%s]", file.isFile()));
+                System.out.println(String.format(">>>>> File Exits? >>>>> [%s]", file.exists()));
                 bReader = new BufferedReader(new FileReader(file));
                 setCredentials(ReadUtils.readToEndOnProperties(bReader));
             }
@@ -80,7 +81,6 @@ public class ConnectionLoader {
                 e.printStackTrace();
             }
         }
-
     }
 
     @Override

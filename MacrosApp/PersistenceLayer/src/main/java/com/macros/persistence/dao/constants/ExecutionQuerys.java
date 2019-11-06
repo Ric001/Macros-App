@@ -6,8 +6,8 @@ public enum ExecutionQuerys {
     @Override
     public String toString() {
         switch (this) {
-        case CREATE: return "INSERT INTO EXECUTIONS(EXECUTIONS_ID, EXECUTED_ORDER, EXECUTION_DATE) VALUES (?, ?, ?)";
-        case MODIFY: return "UPDATE EXECUTIONS SET EXECUTED_ORDER = ?, SET EXECUTION_DATE = ?";
+        case CREATE: return "INSERT INTO EXECUTIONS(EXECUTED_ORDER, EXECUTION_DATE) VALUES (?, ?)";
+        case MODIFY: return "UPDATE EXECUTIONS SET EXECUTED_ORDER = ?, SET EXECUTION_DATE = ? WHERE EXECUTIONS_ID = ?";
         case REMOVE: return "DELETE FROM EXECUTIONS WHERE EXECUTIONS_ID = ?";
         case FIND_ALL: return "SELECT * FROM EXECUTIONS";
         case FIND_BY_ID: return "SELECT * FROM EXECUTIONS WHERE EXECUTIONS_ID = ?";

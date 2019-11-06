@@ -47,7 +47,6 @@ public interface IDAO {
             final Timestamp timestampFromFormattedDate = Timestamp.valueOf(formattedDate);
             return timestampFromFormattedDate.toLocalDateTime();
         }
-
         return null;
     }
 

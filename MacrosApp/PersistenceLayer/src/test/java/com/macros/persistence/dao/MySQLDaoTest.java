@@ -2,6 +2,7 @@ package com.macros.persistence.dao;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -87,8 +88,7 @@ public class MySQLDaoTest {
     }
 
     @Test
-    public void executedOrdersTest()
-    {
+    public void executedOrdersTest() {
         final IDAO dao = new MySQLDAO(DBProviders.MYSQL);
         try {
             final List<ExecutedOrder> executedOrders =  dao.executedOrders();
@@ -125,14 +125,62 @@ public class MySQLDaoTest {
             final List<ExecutedOrder> executedOrders = dao.get().executedOrders();
             assertNotNull(executedOrders);
             System.out.println(String.format("\n=====> Executed Orders [%s] <======\n", executedOrders));
-            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } 
+
+    @Test
+    public void createExecutionTest() {
+        final Optional<IDAO> dao = new DAOFactory().daoByProvider(DBProviders.MYSQL);
+        assertTrue(dao.isPresent());
+        System.out.println(String.format("\n========> RETURNED DAO [%s] <======\n", dao));
+        try {
+            final ExecutedOrder executedOrder = dao.get().findExecutedOrderById(2);
+            executedOrder.setId(3);
+            executedOrder.setExecutionDatetime(LocalDateTime.now());
+            dao.get().create(executedOrder);
+            final ExecutedOrder executedOrder2 = dao.get().findExecutedOrderById(3); 
+            assertNotNull(executedOrder2);
+            System.out.println(String.format("\n=======> NEW Executed Order [%s] <=======\n", executedOrder2));
         } catch (SQLException e) {
             e.printStackTrace();
         }
     } 
     
-    private Order order()
-    {
+    /**
+    @Test
+    public void modifyExecutionOrdersTest() {
+        final Optional<IDAO> dao = new DAOFactory().daoByProvider(DBProviders.MYSQL);
+        assertTrue(dao.isPresent());
+        try {
+            final ExecutedOrder executedOrder = dao.get().findExecutedOrderById(1);
+            executedOrder.setOrder(dao.get().findOrderById(15));
+            assertNotNull(executedOrder);
+            assertNotNull(executedOrder.getOrder());
+            dao.get().modify(executedOrder);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } */
+
+    @Test
+    public void removeExecutionOrderTest() {
+        final Optional<IDAO> dao = new DAOFactory().daoByProvider(DBProviders.MYSQL);
+        assertNotNull(dao);
+        assertTrue(dao.isPresent());
+        System.out.println(String.format("\n=======> DAOFactory <=======\n", dao));
+        try {
+            final ExecutedOrder executedOrder = dao.get().findExecutedOrderById(7);
+            assertNotNull(executedOrder);
+            System.out.println(String.format("\n========> Executed Order to Remove %s <=======\n", executedOrder));
+            dao.get().remove(executedOrder);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }   
+    }
+    
+    private Order order() {
         final String name = "Order needed";
         final String content = "Julues Verne";
         final LocalDateTime requDateTime = LocalDateTime.now();
